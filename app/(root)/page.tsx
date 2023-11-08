@@ -1,13 +1,21 @@
-import { UserButton } from "@clerk/nextjs"
+"use client";
 
+import { useEffect } from "react";
+import { useParams } from "next/navigation";
 
+import { useStoreModal } from "@/hooks/use-store-modal";
 
 const SetupPage = () => {
-    return (
-      <div className="p-4">
-        <UserButton afterSignOutUrl="/" />
-      </div>
-    )
-  }
+  const onOpen = useStoreModal((state) => state.onOpen);
+  const isOpen = useStoreModal((state) => state.isOpen);
 
-export default SetupPage
+  useEffect(() => {
+    if (!isOpen) {
+      onOpen();
+    }
+  }, [isOpen, onOpen]);
+
+  return null;
+};
+ 
+export default SetupPage;
