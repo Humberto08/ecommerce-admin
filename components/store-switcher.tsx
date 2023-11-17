@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react"
 import {
   Popover,
   PopoverContent,
@@ -9,7 +10,7 @@ import { useStoreModal } from "@/hooks/use-store-modal";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown, Store, StoreIcon } from "lucide-react";
+import { Check, ChevronsUpDown, Store } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Command,
@@ -45,11 +46,11 @@ export default function StoreSwitcher({
     (item) => item.value === params.storeId
   );
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false)
 
-  const onStoreSelect = (store: { value: string; label: string }) => {
+  const onStoreSelect = (store: { value: string, label: string }) => {
     setOpen(false);
-    router.push(`/$(store.value)`);
+    router.push(`/${store.value}`);
   };
 
   return (
@@ -59,41 +60,42 @@ export default function StoreSwitcher({
           variant="outline"
           size="sm"
           role="combobox"
-          aria-expand={open}
+          aria-expanded={open}
           aria-label="Select a store"
           className={cn("w-[200px] justify-between", className)}
         >
-          <StoreIcon className="mr-2 h-4 w-4" />
-          Current Store
+          <Store className="mr-2 h-4 w-4" />
+          {currentStore?.label}
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandList>
-            <CommandInput placeholder="Search store..." />
-            <CommandEmpty>No store found</CommandEmpty>
+            <CommandInput placeholder="Pesquisar loja..." />
+            <CommandEmpty>Nenhuma loja encontrada</CommandEmpty>
+
+            <CommandGroup heading="Lojas">
+              {formattedItems.map((store) => (
+                <CommandItem
+                  key={store.value}
+                  onSelect={() => onStoreSelect(store)}
+                  className="text-sm"
+                >
+                  <Store className="mr-2 h-4 w-4" />
+                  {store.label}
+                  <Check
+                    className={cn(
+                      "ml-auto h-4 w-4",
+                      currentStore?.value === store.value
+                        ? "opacity-100"
+                        : "opacity-0"
+                    )}
+                  />
+                </CommandItem>
+              ))}
+            </CommandGroup>
           </CommandList>
-          <CommandGroup heading="Stores">
-            {formattedItems.map((store) => (
-              <CommandItem
-                key={store.value}
-                onSelect={() => onStoreSelect(store)}
-                className="text-sm"
-              >
-                <StoreIcon className="mr-2 h-4 w-4" />
-                {store.label}
-                <Check
-                  className={cn(
-                    "ml-auto h-4 w-4",
-                    currentStore?.value === store.value
-                      ? "opacity-100"
-                      : "opacity-0"
-                  )}
-                />
-              </CommandItem>
-            ))}
-          </CommandGroup>
         </Command>
       </PopoverContent>
     </Popover>
