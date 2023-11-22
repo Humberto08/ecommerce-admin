@@ -1,17 +1,9 @@
-"use client";
+"use client"
 
 import * as React from "react"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { useStoreModal } from "@/hooks/use-store-modal";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown, Store } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Check, ChevronsUpDown, PlusCircle, Store } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -19,32 +11,33 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+  CommandSeparator,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { useStoreModal } from "@/hooks/use-store-modal"
+import { useParams, useRouter } from "next/navigation"
 
-type PopoverTriggerProps = React.ComponentPropsWithoutRef<
-  typeof PopoverTrigger
->;
+type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
 interface StoreSwitcherProps extends PopoverTriggerProps {
   items: Record<string, any>[];
 }
 
-export default function StoreSwitcher({
-  className,
-  items = [],
-}: StoreSwitcherProps) {
+export default function StoreSwitcher({ className, items = [] }: StoreSwitcherProps) {
   const storeModal = useStoreModal();
   const params = useParams();
   const router = useRouter();
 
   const formattedItems = items.map((item) => ({
     label: item.name,
-    value: item.id,
+    value: item.id
   }));
 
-  const currentStore = formattedItems.find(
-    (item) => item.value === params.storeId
-  );
+  const currentStore = formattedItems.find((item) => item.value === params.storeId);
 
   const [open, setOpen] = React.useState(false)
 
@@ -61,7 +54,7 @@ export default function StoreSwitcher({
           size="sm"
           role="combobox"
           aria-expanded={open}
-          aria-label="Select a store"
+          aria-label="Selecione uma loja"
           className={cn("w-[200px] justify-between", className)}
         >
           <Store className="mr-2 h-4 w-4" />
@@ -73,8 +66,7 @@ export default function StoreSwitcher({
         <Command>
           <CommandList>
             <CommandInput placeholder="Pesquisar loja..." />
-            <CommandEmpty>Nenhuma loja encontrada</CommandEmpty>
-
+            <CommandEmpty>Loja não encontrada.</CommandEmpty>
             <CommandGroup heading="Lojas">
               {formattedItems.map((store) => (
                 <CommandItem
@@ -96,8 +88,22 @@ export default function StoreSwitcher({
               ))}
             </CommandGroup>
           </CommandList>
+          <CommandSeparator />
+          <CommandList>
+            <CommandGroup>
+              <CommandItem
+                onSelect={() => {
+                  setOpen(false)
+                  storeModal.onOpen()
+                }}
+              >
+                <PlusCircle className="mr-2 h-5 w-5" />
+                Criar loja
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>
   );
-}
+};
