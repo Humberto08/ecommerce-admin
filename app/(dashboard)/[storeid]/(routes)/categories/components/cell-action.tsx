@@ -1,54 +1,53 @@
 "use client";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { BillboardColumn } from "./columns";
-import { Button } from "@/components/ui/button";
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
-import toast from "react-hot-toast";
-import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
+import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { toast } from "react-hot-toast";
+import { useParams, useRouter } from "next/navigation";
+
+import { Button } from "@/components/ui/button";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuLabel, 
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 import { AlertModal } from "@/components/modals/alert-modal";
 
+import { CategoryColumn } from "./columns";
+
 interface CellActionProps {
-  data: BillboardColumn;
+  data: CategoryColumn;
 }
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+
+export const CellAction: React.FC<CellActionProps> = ({
+  data,
+}) => {
   const router = useRouter();
   const params = useParams();
-
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const onConfirm = async () => {
+    try {
+      setLoading(true);
+      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
+      toast.success('Categoria excluída.');
+      router.refresh();
+    } catch (error) {
+      toast.error('Certifique-se de remover todos os produtos que usam esta categoria primeiro');
+    } finally {
+      setOpen(false);
+      setLoading(false);
+    }
+  };
+
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Id publicação copiado para a área de transferência.");
-
-    const onDelete = async () => {
-      try {
-        setLoading(true);
-        await axios.delete(
-          `/api/${params.storeId}/billboards/${data.id}`
-        );
-        router.refresh();
-        router.push(`/${params.storeId}/billboards`);
-        toast.success("Publicação deletada.");
-      } catch (error: any) {
-        toast.error(
-          "Certifique-se de remover todas as categorias usando esta publicação primeiro."
-        );
-      } finally {
-        setLoading(false);
-        setOpen(false);
-      }
-    };
-  };
+    toast.success('ID da categoria copiado para a área de transferência.');
+  }
 
   return (
     <>
@@ -73,7 +72,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <Copy className="mr-2 h-4 w-4" /> Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/${params.storeId}/billboards/${data.id}`)}
+            onClick={() => router.push(`/${params.storeId}/categories/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>
