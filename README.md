@@ -7,7 +7,6 @@ For DEMO, use [Stripe Testing Cards](https://stripe.com/docs/testing)
 
 This is a repository for a Full Stack E-Commerce + Dashboard & CMS: Next.js 13 App Router, React, Tailwind, Prisma, MySQL
 
-[VIDEO TUTORIAL](https://youtu.be/5miHyP6lExg)
 
 Key Features:
 
