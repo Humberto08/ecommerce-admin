@@ -44,10 +44,10 @@ export const SizeForm: React.FC<SizeFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? 'Editar um tamanho' : 'Criar tamanho';
-  const description = initialData ? 'Editar um tamanho.' : 'Adicionar um novo tamanho';
-  const toastMessage = initialData ? 'Atualizar tamanho.' : 'Criar tamanho.';
-  const action = initialData ? 'Salvar alterações' : 'Criar';
+  const title = initialData ? 'Edit size' : 'Create size';
+  const description = initialData ? 'Edit a size.' : 'Add a new size';
+  const toastMessage = initialData ? 'Size updated.' : 'Size created.';
+  const action = initialData ? 'Save changes' : 'Create';
 
   const form = useForm<SizeFormValues>({
     resolver: zodResolver(formSchema),
@@ -68,7 +68,7 @@ export const SizeForm: React.FC<SizeFormProps> = ({
       router.push(`/${params.storeId}/sizes`);
       toast.success(toastMessage);
     } catch (error: any) {
-      toast.error('Algo deu errado.');
+      toast.error('Something went wrong.');
     } finally {
       setLoading(false);
     }
@@ -80,9 +80,9 @@ export const SizeForm: React.FC<SizeFormProps> = ({
       await axios.delete(`/api/${params.storeId}/sizes/${params.sizeId}`);
       router.refresh();
       router.push(`/${params.storeId}/sizes`);
-      toast.success('Tamanho excluido.');
+      toast.success('Size deleted.');
     } catch (error: any) {
-      toast.error('Certifique-se de remover todos os produtos usando este tamanho primeiro.');
+      toast.error('Make sure you removed all products using this size first.');
     } finally {
       setLoading(false);
       setOpen(false);
@@ -121,7 +121,7 @@ export const SizeForm: React.FC<SizeFormProps> = ({
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Nome do tamanho" {...field} />
+                    <Input disabled={loading} placeholder="Size name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -134,7 +134,7 @@ export const SizeForm: React.FC<SizeFormProps> = ({
                 <FormItem>
                   <FormLabel>Value</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Valor do tamanho" {...field} />
+                    <Input disabled={loading} placeholder="Size value" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

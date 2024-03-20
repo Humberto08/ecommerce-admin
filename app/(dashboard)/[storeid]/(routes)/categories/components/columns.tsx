@@ -14,16 +14,16 @@ export type CategoryColumn = {
 export const columns: ColumnDef<CategoryColumn>[] = [
   {
     accessorKey: "name",
-    header: "Nome",
+    header: "Name",
   },
   {
     accessorKey: "billboard",
-    header: "Publicação",
+    header: "Billboard",
     cell: ({ row }) => row.original.billboardLabel,
   },
   {
     accessorKey: "createdAt",
-    header: "Data",
+    header: "Date",
   },
   {
     id: "actions",

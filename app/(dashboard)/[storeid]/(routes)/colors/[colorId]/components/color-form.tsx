@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast"
 import { Trash } from "lucide-react"
 import { Color } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
+
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import {
@@ -26,7 +27,7 @@ import { AlertModal } from "@/components/modals/alert-modal"
 const formSchema = z.object({
   name: z.string().min(2),
   value: z.string().min(4).max(9).regex(/^#/, {
-    message: 'String deve ser um código hexadecimal válido'
+    message: 'String must be a valid hex code'
   }),
 });
 
@@ -45,10 +46,10 @@ export const ColorForm: React.FC<ColorFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? 'Editar cor' : 'Criar cor';
-  const description = initialData ? 'Editar uma cor.' : 'Adicione uma nova cor';
-  const toastMessage = initialData ? 'Cor atualizada.' : 'Cor criada.';
-  const action = initialData ? 'Salvar alterações' : 'Criar';
+  const title = initialData ? 'Edit color' : 'Create color';
+  const description = initialData ? 'Edit a color.' : 'Add a new color';
+  const toastMessage = initialData ? 'Color updated.' : 'Color created.';
+  const action = initialData ? 'Save changes' : 'Create';
 
   const form = useForm<ColorFormValues>({
     resolver: zodResolver(formSchema),
@@ -69,7 +70,7 @@ export const ColorForm: React.FC<ColorFormProps> = ({
       router.push(`/${params.storeId}/colors`);
       toast.success(toastMessage);
     } catch (error: any) {
-      toast.error('Algo deu errado.');
+      toast.error('Something went wrong.');
     } finally {
       setLoading(false);
     }
@@ -81,9 +82,9 @@ export const ColorForm: React.FC<ColorFormProps> = ({
       await axios.delete(`/api/${params.storeId}/colors/${params.colorId}`);
       router.refresh();
       router.push(`/${params.storeId}/colors`);
-      toast.success('Cor excluída.');
+      toast.success('Color deleted.');
     } catch (error: any) {
-      toast.error('Certifique-se de remover todos os produtos que usam esta cor primeiro.');
+      toast.error('Make sure you removed all products using this color first.');
     } finally {
       setLoading(false);
       setOpen(false);
@@ -120,9 +121,9 @@ export const ColorForm: React.FC<ColorFormProps> = ({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nome</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Nome da cor" {...field} />
+                    <Input disabled={loading} placeholder="Color name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -136,7 +137,7 @@ export const ColorForm: React.FC<ColorFormProps> = ({
                   <FormLabel>Value</FormLabel>
                   <FormControl>
                     <div className="flex items-center gap-x-4">
-                      <Input disabled={loading} placeholder="Valor da cor" {...field} />
+                      <Input disabled={loading} placeholder="Color value" {...field} />
                       <div 
                         className="border p-4 rounded-full" 
                         style={{ backgroundColor: field.value }}

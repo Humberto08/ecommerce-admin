@@ -1,25 +1,18 @@
 "use client";
 
-import { useStoreModal } from "@/hooks/use-store-modal";
-import { Modal } from "@/components/ui/modal";
-import * as z from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import * as z from "zod"
 import axios from "axios";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+import { Modal } from "@/components/ui/modal";
+import { Input } from "@/components/ui/input";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useStoreModal } from "@/hooks/use-store-modal";
+import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -44,7 +37,7 @@ export const StoreModal = () => {
       const response = await axios.post('/api/stores', values);
       window.location.assign(`/${response.data.id}`);
     } catch (error) {
-      toast.error('Something went wrong (Algo deu errado)');
+      toast.error('Something went wrong');
     } finally {
       setLoading(false);
     }
@@ -53,7 +46,7 @@ export const StoreModal = () => {
   return (
     <Modal
       title="Create store"
-      description="Add a new store to manage products and categories (Adicione uma nova loja e gerencie produtos e categorias.)."
+      description="Add a new store to manage products and categories."
       isOpen={storeModal.isOpen} 
       onClose={storeModal.onClose}
     >
@@ -67,7 +60,7 @@ export const StoreModal = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nome</FormLabel>
+                      <FormLabel>Name</FormLabel>
                       <FormControl>
                         <Input disabled={loading} placeholder="E-Commerce" {...field} />
                       </FormControl>
@@ -77,9 +70,9 @@ export const StoreModal = () => {
                 />
                 <div className="pt-6 space-x-2 flex items-center justify-end w-full">
                   <Button disabled={loading} variant="outline" onClick={storeModal.onClose}>
-                    Cancelar
+                    Cancel
                   </Button>
-                  <Button disabled={loading} type="submit">Continuar</Button>
+                  <Button disabled={loading} type="submit">Continue</Button>
                 </div>
               </form>
             </Form>

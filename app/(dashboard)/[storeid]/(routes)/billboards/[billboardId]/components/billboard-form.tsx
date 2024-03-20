@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast"
 import { Trash } from "lucide-react"
 import { Billboard } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
+
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import {
@@ -44,10 +45,10 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? 'Editar uma publicação' : 'Criar uma publicação';
-  const description = initialData ? 'Editar uma publicação.' : 'Adicionar um nova publicação.';
-  const toastMessage = initialData ? 'Publicação atualizada.' : 'Publicação criada.';
-  const action = initialData ? 'Salvar alterações' : 'Criar';
+  const title = initialData ? 'Edit billboard' : 'Create billboard';
+  const description = initialData ? 'Edit a billboard.' : 'Add a new billboard';
+  const toastMessage = initialData ? 'Billboard updated.' : 'Billboard created.';
+  const action = initialData ? 'Save changes' : 'Create';
 
   const form = useForm<BillboardFormValues>({
     resolver: zodResolver(formSchema),
@@ -69,7 +70,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
     } catch (error: any) {
-      toast.error('Algo deu errado.');
+      toast.error('Something went wrong.');
     } finally {
       setLoading(false);
     }
@@ -81,9 +82,9 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
       router.refresh();
       router.push(`/${params.storeId}/billboards`);
-      toast.success('Publicação deletada.');
+      toast.success('Billboard deleted.');
     } catch (error: any) {
-      toast.error('Certifique-se de remover todas as categorias usando esta publicação primeiro.');
+      toast.error('Make sure you removed all categories using this billboard first.');
     } finally {
       setLoading(false);
       setOpen(false);
@@ -119,9 +120,9 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
               name="imageUrl"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Imagem de fundo</FormLabel>
+                  <FormLabel>Background image</FormLabel>
                   <FormControl>
-                  <ImageUpload 
+                    <ImageUpload 
                       value={field.value ? [field.value] : []} 
                       disabled={loading} 
                       onChange={(url) => field.onChange(url)}
@@ -138,9 +139,9 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
               name="label"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Etiqueta</FormLabel>
+                  <FormLabel>Label</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Etiqueta da publicação" {...field} />
+                    <Input disabled={loading} placeholder="Billboard label" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

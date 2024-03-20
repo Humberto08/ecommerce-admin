@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast"
 import { Trash } from "lucide-react"
 import { Category, Color, Image, Product, Size } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
+
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import {
@@ -61,10 +62,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? 'Editar produto' : 'Criar produto';
-  const description = initialData ? 'Edite um produto.' : 'Adicione um novo produto';
-  const toastMessage = initialData ? 'Produto atualizado.' : 'Produto criado.';
-  const action = initialData ? 'Salvar alterações' : 'Criar';
+  const title = initialData ? 'Edit product' : 'Create product';
+  const description = initialData ? 'Edit a product.' : 'Add a new product';
+  const toastMessage = initialData ? 'Product updated.' : 'Product created.';
+  const action = initialData ? 'Save changes' : 'Create';
 
   const defaultValues = initialData ? {
     ...initialData,
@@ -166,9 +167,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nome</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Nome do Produto" {...field} />
+                    <Input disabled={loading} placeholder="Product name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -192,11 +193,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               name="categoryId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Categoria</FormLabel>
+                  <FormLabel>Category</FormLabel>
                   <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value} placeholder="Selecione uma categoria" />
+                        <SelectValue defaultValue={field.value} placeholder="Select a category" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -214,11 +215,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               name="sizeId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tamanho</FormLabel>
+                  <FormLabel>Size</FormLabel>
                   <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value} placeholder="Selecione um tamanho" />
+                        <SelectValue defaultValue={field.value} placeholder="Select a size" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -236,11 +237,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               name="colorId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Cor</FormLabel>
+                  <FormLabel>Color</FormLabel>
                   <Select disabled={loading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue defaultValue={field.value} placeholder="Selecione uma cor" />
+                        <SelectValue defaultValue={field.value} placeholder="Select a color" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

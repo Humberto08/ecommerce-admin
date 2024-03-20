@@ -14,6 +14,7 @@ import {
   DropdownMenuLabel, 
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import { useCategoryModal } from "@/hooks/use-category-modal";
 import { AlertModal } from "@/components/modals/alert-modal";
 
 import { CategoryColumn } from "./columns";
@@ -34,10 +35,10 @@ export const CellAction: React.FC<CellActionProps> = ({
     try {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
-      toast.success('Categoria excluída.');
+      toast.success('Category deleted.');
       router.refresh();
     } catch (error) {
-      toast.error('Certifique-se de remover todos os produtos que usam esta categoria primeiro');
+      toast.error('Make sure you removed all products using this category first.');
     } finally {
       setOpen(false);
       setLoading(false);
@@ -46,7 +47,7 @@ export const CellAction: React.FC<CellActionProps> = ({
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success('ID da categoria copiado para a área de transferência.');
+    toast.success('Category ID copied to clipboard.');
   }
 
   return (

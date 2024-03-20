@@ -1,5 +1,3 @@
-"use client"
-
 import { Copy, Server } from "lucide-react";
 import { toast } from "react-hot-toast";
 
@@ -31,7 +29,7 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
 }) => {
   const onCopy = (description: string) => {
     navigator.clipboard.writeText(description);
-    toast.success('Rota API copiada para a área de transferência.');
+    toast.success('API Route copied to clipboard.');
   }
 
   return ( 
@@ -52,5 +50,5 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
         </Button>
       </AlertDescription>
     </Alert>
-  );
+   );
 };
