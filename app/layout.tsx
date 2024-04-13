@@ -10,7 +10,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Dashboard',
+  title: 'Dashboard - Hstore',
   description: 'E-Commerce Dashboard',
 }
 
@@ -22,6 +22,9 @@ export default async function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <head>
+          <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        </head>
         <body className={inter.className}>
           <ThemeProvider 
             attribute="class" 
