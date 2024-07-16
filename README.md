@@ -1,6 +1,5 @@
-# Full Stack E-Commerce + Dashboard & CMS: Next.js 13 App Router, React, Tailwind, Prisma, MySQL, 2024
+# Full Stack E-Commerce + Dashboard & CMS: Next.js 14 App Router, React, Tailwind, Prisma, Postgres, 2024
 
-![Copy of Copy of Fullstack Twitter Clone (1)]()
 
 
 For DEMO, use [Stripe Testing Cards](https://stripe.com/docs/testing)
@@ -89,3 +88,10 @@ Running commands with npm `npm run [command]`
 | command         | description                              |
 | :-------------- | :--------------------------------------- |
 | `dev`           | Starts a development instance of the app |
+
+
+<div id='contatos' align="center">
+  <p align="center">Made with 💜 by Humberto Luciano</p>
+  <div id="contatos" align="center">
+    <a href="https://www.linkedin.com/in/humberto-luciano/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a>
+</div>
