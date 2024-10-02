@@ -1,95 +1,81 @@
-# Full Stack E-Commerce + Dashboard & CMS: Next.js 14 App Router, React, Tailwind, Prisma, Postgres, 2024
+# E-Commerce Admin
 
+Este projeto é o backend e CMS de uma aplicação full-stack de e-commerce. Ele gerencia produtos, categorias, pedidos e outras funcionalidades administrativas, utilizando NestJS, Prisma, PostgreSQL e integração com o Stripe.
 
+## Recursos Principais
 
-For DEMO, use [Stripe Testing Cards](https://stripe.com/docs/testing)
+- **Gestão de Produtos**: Criação, edição e exclusão de produtos.
+- **Categorias e Filtros**: Organização dos produtos por categorias, cores e tamanhos.
+- **Billboards**: Sistema para gerenciar banners e vitrines por categoria.
+- **Pedidos**: Visualização e gestão de pedidos realizados.
+- **Gráficos de Vendas**: Visualização de métricas e gráficos de vendas.
+- **Integração com Cloudinary**: Upload de imagens de produtos.
+- **Múltiplos Vendedores**: Suporte para gerenciamento de múltiplos vendedores.
 
-This is a repository for a Full Stack E-Commerce + Dashboard & CMS: Next.js 14 App Router, React, Tailwind, Prisma, Postgres
+## Tecnologias Utilizadas
 
+- **NestJS**: Framework de backend escalável para a criação de APIs.
+- **Prisma**: ORM para interações com o banco de dados PostgreSQL.
+- **PostgreSQL**: Banco de dados relacional.
+- **Stripe**: Integração para processamento de pagamentos.
+- **Cloudinary**: Serviço de hospedagem de imagens.
 
-Key Features:
+## Pré-requisitos
 
-- We will be using Shadcn UI for the Admin!
-- Our admin dashboard is going to serve as both CMS, Admin and API!
-- You will be able to control mulitple vendors / stores through this single CMS! (For example you can have a "Shoe store" and a "Laptop store" and a "Suit store", and our CMS will generate API routes for all of those individually!)
-- You will be able to create, update and delete categories!
-- You will be able to create, update and delete products!
-- You will be able to upload multiple images for products, and change them whenever you want!
-- You will be able to create, update and delete filters such as "Color" and "Size", and then match them in the "Product" creation form.
-- You will be able to create, update and delete "Billboards" which are these big texts on top of the page. You will be able to attach them to a single category, or use them standalone (Our Admin generates API for all of those cases!)
-- You will be able to Search through all categories, products, sizes, colors, billboards with included pagination!
-- You will be able to control which products are "featured" so they show on the homepage!
-- You will be able to see your orders, sales, etc.
-- You will be able to see graphs of your revenue etc.
-- You will learn Clerk Authentication!
-- Order creation
-- Stripe checkout
-- Stripe webhooks
-- MySQL + Prisma + PlanetScale
+- Node.js versão 14.x ou superior.
+- PostgreSQL configurado.
+- Stripe API configurado.
 
-### Prerequisites
+## Configuração
 
-**Node version 14.x**
+### Clone o Repositório
 
-### Cloning the repository
-
-```shell
+```bash
 git clone https://github.com/Humberto08/ecommerce-admin.git
 ```
+### Instale as Dependências
+No diretório do projeto, execute o comando:
 
-### Install packages
-
-```shell
-npm i
+```bash
+npm install
 ```
+### Configuração do Ambiente
+Crie um arquivo .env com as seguintes variáveis de ambiente:
 
-### Setup .env file
-
-
-```js
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
-
-# This was inserted by `prisma init`:
-# Environment variables declared in this file are automatically made available to Prisma.
-# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
-
-# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
-# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
-
-DATABASE_URL=''
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=""
+```bash
+DATABASE_URL="postgresql://seu-usuario:senha@localhost:5432/ecommerce-admin"
 STRIPE_API_KEY=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 FRONTEND_STORE_URL=http://localhost:3001
-STRIPE_WEBHOOK_SECRET=
 ```
+### Gere o Cliente Prisma e Migre o Banco de Dados
 
-### Connect to PlanetScale and Push Prisma
-```shell
+```bash
 npx prisma generate
 npx prisma db push
 ```
+### Iniciar o Servidor de Desenvolvimento
+Após configurar o ambiente, você pode iniciar o servidor com:
 
-
-### Start the app
-
-```shell
+```bash
 npm run dev
 ```
+O servidor estará rodando em http://localhost:3000.
 
-## Available commands
+## Integração com o Front-End
+Este projeto é utilizado em conjunto com a aplicação [ecommerce-store](https://github.com/Humberto08/ecommerce-store), que consome a API fornecida por este backend para exibir os produtos, processar pedidos e gerenciar o front-end da loja online.
 
-Running commands with npm `npm run [command]`
+## Funcionalidades
+- Gerenciamento de Produtos: Crie, edite e remova produtos, gerencie estoque e visualize vendas.
+- Billboards (Vitrines): Customize banners para cada categoria de produto.
+- Filtros: Crie filtros de produto por cor e tamanho para uma melhor navegação dos clientes.
+- Pedidos: Gerencie e acompanhe o status dos pedidos realizados.
+- Integração com Stripe: Processamento de pagamentos seguro e eficiente.
+- Cloudinary: Para upload e gestão de imagens dos produtos.
 
-| command         | description                              |
-| :-------------- | :--------------------------------------- |
-| `dev`           | Starts a development instance of the app |
-
-
+##
 <div id='contatos' align="center">
   <p align="center">Made with 💜 by Humberto Luciano</p>
   <div id="contatos" align="center">
